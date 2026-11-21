@@ -27,7 +27,7 @@ python -c "import aniso_fields, diffusion, unet, localization_data, localization
 
 ## Experimental protocol in the paper
 
-Adjust the data loader to match the train/test split for each experiment.
+Adjust the data loader to match the train/test split for each experiment. Use the parameter settings specified for each experiment.
 
 ### 1. Textile localization
 
