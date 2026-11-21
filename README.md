@@ -25,9 +25,9 @@ python -m pip install torch torchvision numpy pillow opencv-python
 python -c "import aniso_fields, diffusion, unet, localization_data, localization_train, localization_infer"
 ~~~
 
-## Experimental protocol in the paper
+## Experiment-specific Protocols
 
-Adjust the data loader to match the train/test split for each experiment. Use the parameter settings specified for each experiment.
+Each experiment uses its own data split, training budget, and hyperparameter configuration. Please follow the corresponding experiment-specific settings and protocols described in the paper rather than applying a single shared configuration to all experiments.
 
 ### 1. Textile localization
 
