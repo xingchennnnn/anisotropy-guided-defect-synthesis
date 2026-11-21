@@ -1,6 +1,6 @@
 # Anisotropy-Guided Defect Synthesis
 
-Core code for **Anisotropy-Guided Zero-Target-Defect Anomaly Synthesis for Resource-Constrained Textile Inspection in Industrial IoT**.
+This repository contains the code for **Anisotropy-Guided Zero-Target-Defect Anomaly Synthesis for Resource-Constrained Textile Inspection in Industrial IoT**.
 
 The method uses external defect images and masks to synthesize labeled defects on normal images of a target fabric. The generated image–mask pairs provide pixel-level supervision for a line-specific U-Net when real target defects are unavailable or scarce. The generator runs offline, and the detector handles online inspection.
 
@@ -27,6 +27,8 @@ python -c "import aniso_fields, diffusion, unet, localization_data, localization
 
 ## Experimental protocol in the paper
 
+Adjust the data loader to match the train/test split for each experiment.
+
 ### 1. Textile localization
 
 Line01 and Line02 each use 70 normal images for detector training and target backgrounds. The same held-out split is used for all methods on a line, with 30 normal images and 50 real defect images with pixel masks. Zero-target-defect means that no real defects from the target line are used during training.
@@ -48,14 +50,6 @@ The zero-target-defect generator checkpoint is shared across both lines. Its ext
 | Textile detector | 3 input channels, 2 output channels, base width 40, and focal loss. Adam uses learning rate `1e-4` and batch size 32. Each of the 80 epochs draws 80 normal and 80 anomalous samples with replacement. Evaluation uses the fixed epoch-80 checkpoint. |
 | Textile reporting | Pixel-level AUROC, AP, and PRO. Report the mean and sample standard deviation over seeds 0, 1, and 2, with the test split, real-shot lists, and method-specific synthetic pools held fixed. |
 
-### 3. MVTec AD comparison and ablation
-
-The separate MVTec AD experiment covers all 15 object categories. For each defect subtype, one third of the real anomalies train the generator, and the remaining two thirds are held out. Our method generates 500 image–mask pairs per subtype for detector training. The LFM, GCAM, and JCL ablation configurations share the same split, generation budget, and detection protocol.
-
-### 4. Edge evaluation
-
-For each textile line, the FP32 ONNX and INT8 RKNN models come from the same 20-shot detector checkpoint and are evaluated on the same held-out images. The paper reports batch-one RK3588 timings with 256 × 256 input patches. Online inference uses the detector only.
-
 ## Data availability
 
-Line01, Line02, and the factory-collected source data are not included in this repository. Use your own textile images and corresponding binary masks when adapting the modules to a new domain.
+We will release the Line01, Line02, and factory-collected source datasets later.
